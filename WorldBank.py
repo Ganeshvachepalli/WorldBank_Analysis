@@ -172,15 +172,24 @@ fig = px.histogram(data, x='Inflation Rate', nbins=20,
                    labels={"Inflation Rate": "Inflation Rate (%)"})
 fig.show()
 # Compute statistical moments for GDP
-gdp_mean = data["GDP"].mean()
-gdp_variance = data["GDP"].var()
-gdp_skewness = data["GDP"].skew()
-gdp_kurtosis = data["GDP"].kurtosis()
+# List of numeric columns
+numeric_columns = [
+    'Agriculture (% GDP)', 'Ease of Doing Business', 'Education Expenditure (% GDP)',
+    'Export (% GDP)', 'GDP', 'Health Expenditure (% GDP)', 'Import (% GDP)',
+    'Industry (% GDP)', 'Inflation Rate', 'R&D', 'Service (% GDP)', 'Unemployment',
+    'Population', 'Land', 'Export', 'Import', 'Education Expenditure',
+    'Health Expenditure', 'Net Trade', 'GDP Per Capita', 'Population Density'
+]
 
-print(f"GDP Mean: {gdp_mean:.2f}")
-print(f"GDP Variance: {gdp_variance:.2f}")
-print(f"GDP Skewness: {gdp_skewness:.2f}")
-print(f"GDP Kurtosis: {gdp_kurtosis:.2f}")
+# Compute statistical moments for each column
+for col in numeric_columns:
+    mean = data[col].mean()
+    variance = data[col].var()
+    skewness = data[col].skew()
+    kurtosis = data[col].kurtosis()
+    
+    print(f"{col} - Mean: {mean:.2f}, Variance: {variance:.2f}, Skewness: {skewness:.2f}, Kurtosis: {kurtosis:.2f}")
+
 # Violin Plot - GDP Distribution Across Continents
 # Combines a box plot and KDE to show GDP spread and density per continent.
 # Violin plot for GDP distribution per continent
